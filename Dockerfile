@@ -15,4 +15,4 @@ COPY . .
 
 WORKDIR /app
 
-CMD ["python", "manage.py"]
+CMD ["python", "manage_docker.py"]

@@ -25,7 +25,9 @@ def main():
 
     PGConn()
 
-    execute_from_command_line(sys.argv)
+    ip   = os.getenv('HOST_ADDRESS')
+    port = os.getenv('HOST_PORT')
+    execute_from_command_line([sys.argv[0], 'runserver', f'{ip}:{port}'])
 
 
 if __name__ == '__main__':
