@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-2*a2dd6%q5__f#5i6mcef800u&4kw8s96=9v%g1=bomu3%(-vq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.137"]
+ALLOWED_HOSTS = ["localhost",
+                 "0.0.0.0",
+                 "192.168.1.137"]
 
 
 # Application definition
@@ -75,8 +77,12 @@ WSGI_APPLICATION = 'nyx.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("NYX_DB"),
+        "USER": os.getenv("NYX_USER"),
+        "PASSWORD": os.getenv("NYX_PASSWORD"),
+        "HOST": os.getenv("NYX_HOST"),
+        "PORT": os.getenv("NYX_PORT"),
     }
 }
 

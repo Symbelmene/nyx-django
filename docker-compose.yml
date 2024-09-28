@@ -1,0 +1,25 @@
+services:
+    nyx-django:
+        image: nyx-django
+        container_name: nyx-base
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        environment:
+            - DOCKERCONTAINER=TRUE
+        network_mode: "host"
+        depends_on:
+            - nyx-pgdb
+    nyx-pgdb:
+        image: postgres:latest
+        container_name: nyx-pgdb
+        privileged: true
+        environment:
+            - POSTGRES_USER=${NYX_USER}
+            - POSTGRES_PASSWORD=${NYX_PASSWORD}
+            - POSTGRES_DB=${NYX_DB}
+        network_mode: "host"
+        ports:
+            - 5432:5432
+        volumes:
+            - "${POSTGRES_DB_PATH}:/var/lib/postgresql/data"

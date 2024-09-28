@@ -3,6 +3,13 @@
 import os
 import sys
 
+from tools.db_utils import PGConn
+
+from dotenv import load_dotenv
+load_dotenv()
+
+from tools.db_utils import PGConn
+
 
 def main():
     """Run administrative tasks."""
@@ -15,7 +22,14 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+
+    PGConn()
+
+    ip   = os.getenv('HOST_ADDRESS')
+    port = os.getenv('HOST_PORT')
+    execute_from_command_line([sys.argv[0], 'runserver', f'{ip}:{port}'])
+
+    # execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
